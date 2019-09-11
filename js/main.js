@@ -21,6 +21,30 @@ let array = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+//show current position of the blocks
+let move = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
 const draw = () => {
   let trs = document.querySelectorAll("tr");
 
@@ -53,6 +77,12 @@ const draw = () => {
             //there is nothing under this array and it's a block
             array[i + 1][j] = array[i][j];
             array[i][j] = 0;
+
+            //modify the move array
+            if (move[i][j] == 1) {
+              move[i][j] = 0;
+              move[i + 1][j] = 1;
+            }
             under[j] = 0;
           }
         } else {
@@ -75,7 +105,44 @@ const draw = () => {
         array[1][5] = blockNum;
         array[2][5] = blockNum;
         array[3][5] = blockNum;
+
+        //modifiy the move array
+        move[0][5] = 1;
+        move[1][5] = 1;
+        move[2][5] = 1;
+        move[3][5] = 1;
+
         break;
+    }
+  };
+
+  const moveBlockRight = () => {
+    for (let i = 19; i >= 0; i--) {
+      let newMove = move[i].concat();
+      for (let j = 8; j >= 0; j--) {
+        if (move[i][j] == 1) {
+          array[i][j + 1] = array[i][j];
+          array[i][j] = 0;
+          newMove[j + 1] = 1;
+          newMove[j] = 0;
+        }
+      }
+      move[i] = newMove;
+    }
+  };
+
+  const moveBlockLeft = () => {
+    for (let i = 19; i >= 0; i--) {
+      let newMove = move[i].concat();
+      for (let j = 1; j < 10; j++) {
+        if (move[i][j] == 1) {
+          array[i][j - 1] = array[i][j];
+          array[i][j] = 0;
+          newMove[j - 1] = 1;
+          newMove[j] = 0;
+        }
+      }
+      move[i] = newMove;
     }
   };
 
@@ -83,6 +150,14 @@ const draw = () => {
     switch (e.code) {
       case "Space":
         genBlock(1);
+        break;
+
+      case "ArrowRight":
+        moveBlockRight();
+        break;
+
+      case "ArrowLeft":
+        moveBlockLeft();
         break;
     }
     draw();
