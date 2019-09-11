@@ -68,6 +68,26 @@ const draw = () => {
     }
   };
 
+  const genBlock = blockNum => {
+    switch (blockNum) {
+      case 1:
+        array[0][5] = blockNum;
+        array[1][5] = blockNum;
+        array[2][5] = blockNum;
+        array[3][5] = blockNum;
+        break;
+    }
+  };
+
+  document.onkeydown = e => {
+    switch (e.code) {
+      case "Space":
+        genBlock(1);
+        break;
+    }
+    draw();
+  };
+
   setInterval(() => {
     fall();
     draw();
