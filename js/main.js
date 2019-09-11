@@ -1,12 +1,14 @@
 //check if there is a block that can be moved
 let moveFlag = 0;
 
+let resetFlag = 0;
+
 let array = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -27,10 +29,10 @@ let array = [
 //show current position of the blocks
 let move = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -72,7 +74,9 @@ const draw = () => {
 
     for (let i = 19; i >= 0; i--) {
       for (let j = 0; j < 10; j++) {
-        if (under[j] == 0) {
+        if (resetFlag == 1) {
+          return false;
+        } else if (under[j] == 0) {
           if (array[i][j] == 0) {
             //neither there are anything under this array nor it's a block
             under[j] = 0;
@@ -95,7 +99,10 @@ const draw = () => {
           } else {
             //A block is under this array and itself is a block
             if (move[i][j] == 1) {
+              console.log(`i:${i}`);
+              console.log(`j:${j}`);
               resetMove();
+              resetFlag = 1;
             }
             under[j] = 1;
           }
@@ -117,16 +124,30 @@ const draw = () => {
     if (moveFlag == 0) {
       switch (blockNum) {
         case 1:
-          array[0][5] = blockNum;
-          array[1][5] = blockNum;
-          array[2][5] = blockNum;
-          array[3][5] = blockNum;
+          array[0][5] = 1;
+          array[1][5] = 1;
+          array[2][5] = 1;
+          array[3][5] = 1;
 
           //modifiy the move array
           move[0][5] = 1;
           move[1][5] = 1;
           move[2][5] = 1;
           move[3][5] = 1;
+
+          break;
+
+        case 2:
+          array[0][1] = 1;
+          array[0][2] = 1;
+          array[1][0] = 1;
+          array[1][1] = 1;
+
+          //modifiy the move array
+          move[0][1] = 1;
+          move[0][2] = 1;
+          move[1][0] = 1;
+          move[1][1] = 1;
 
           break;
       }
@@ -172,12 +193,14 @@ const draw = () => {
         }
       }
     }
+    moveFlag = 0;
   };
 
   document.onkeydown = e => {
     switch (e.code) {
       case "Space":
-        genBlock(1);
+        resetFlag = 0;
+        genBlock(2);
         break;
 
       case "ArrowRight":
@@ -188,12 +211,15 @@ const draw = () => {
         moveBlockLeft();
         break;
     }
-    draw();
+    // draw();
+    iteration();
   };
 
-  setInterval(() => {
-    checkDelete();
-    fall();
-    draw();
-  }, 1000);
+  const iteration = () => {
+    setInterval(() => {
+      checkDelete();
+      fall();
+      draw();
+    }, 3000);
+  };
 };
