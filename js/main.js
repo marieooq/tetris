@@ -1,3 +1,6 @@
+//check if there is a block that can be moved
+let moveFlag = 0;
+
 let array = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
@@ -91,6 +94,9 @@ const draw = () => {
             under[j] = 0;
           } else {
             //A block is under this array and itself is a block
+            if (move[i][j] == 1) {
+              resetMove();
+            }
             under[j] = 1;
           }
         }
@@ -98,21 +104,33 @@ const draw = () => {
     }
   };
 
+  const resetMove = () => {
+    moveFlag = 0;
+    for (let i = 0; i < 20; i++) {
+      for (let j = 0; j < 10; j++) {
+        move[i][j] = 0;
+      }
+    }
+  };
+
   const genBlock = blockNum => {
-    switch (blockNum) {
-      case 1:
-        array[0][5] = blockNum;
-        array[1][5] = blockNum;
-        array[2][5] = blockNum;
-        array[3][5] = blockNum;
+    if (moveFlag == 0) {
+      switch (blockNum) {
+        case 1:
+          array[0][5] = blockNum;
+          array[1][5] = blockNum;
+          array[2][5] = blockNum;
+          array[3][5] = blockNum;
 
-        //modifiy the move array
-        move[0][5] = 1;
-        move[1][5] = 1;
-        move[2][5] = 1;
-        move[3][5] = 1;
+          //modifiy the move array
+          move[0][5] = 1;
+          move[1][5] = 1;
+          move[2][5] = 1;
+          move[3][5] = 1;
 
-        break;
+          break;
+      }
+      moveFlag = 1;
     }
   };
 
@@ -146,6 +164,16 @@ const draw = () => {
     }
   };
 
+  const checkDelete = () => {
+    for (let i = 19; i >= 0; i--) {
+      if (!array[i].includes(0)) {
+        for (let j = 0; j < 10; j++) {
+          array[i][j] = 0;
+        }
+      }
+    }
+  };
+
   document.onkeydown = e => {
     switch (e.code) {
       case "Space":
@@ -164,7 +192,8 @@ const draw = () => {
   };
 
   setInterval(() => {
+    checkDelete();
     fall();
     draw();
-  }, 500);
+  }, 1000);
 };
