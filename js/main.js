@@ -101,7 +101,14 @@ const draw = () => {
             if (move[i][j] == 1) {
               console.log(`i:${i}`);
               console.log(`j:${j}`);
+              console.log("array");
+              console.log(array);
+              console.log("move");
+              console.log(move);
               resetMove();
+              console.log("move after resetMove was excuted");
+              console.log(move);
+
               resetFlag = 1;
             }
             under[j] = 1;
@@ -220,6 +227,6 @@ const draw = () => {
       checkDelete();
       fall();
       draw();
-    }, 3000);
+    }, 500);
   };
 };
