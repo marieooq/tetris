@@ -17,6 +17,37 @@ class PlayArea {
       }
     }
   }
+  genBlock() {
+    // console.log("genBlock is excecuted");
+    this.shapeData = this.shape.createRandomShape();
+    let aShape = this.shapeData;
+    let typeFlag;
+    let originShape = [];
+
+    typeFlag = this.shape.getWhichShape();
+
+    if (typeFlag == 0) {
+      for (let i = 0; i < aShape.data.length; i++) {
+        if (i > 2) {
+          originShape.push(aShape.data[i]);
+        }
+      }
+    } else {
+      for (let i = 0; i < aShape.data.length; i++) {
+        if (i > 1) {
+          originShape.push(aShape.data[i]);
+        }
+      }
+    }
+
+    for (let i = 0; i < originShape.length; i++) {
+      for (let j = 0; j < originShape[i].length; j++) {
+        this.array[i][j] = originShape[i][j];
+        this.move[i][j] = this.array[i][j];
+      }
+    }
+    // this.moveFlag = 1;
+  }
 
   fall() {
     //an array that checks if there is a block under
@@ -63,7 +94,7 @@ class PlayArea {
   }
 
   resetMove() {
-    this.moveFlag = 0;
+    // this.moveFlag = 0;
     for (let i = 0; i < 20; i++) {
       for (let j = 0; j < 10; j++) {
         this.move[i][j] = 0;
@@ -71,42 +102,44 @@ class PlayArea {
     }
   }
 
-  genBlock(blockNum) {
-    if (this.moveFlag == 0) {
-      switch (blockNum) {
-        case 1:
-          this.array[0][5] = 1;
-          this.array[1][5] = 1;
-          this.array[2][5] = 1;
-          this.array[3][5] = 1;
+  // genBlock(blockNum) {
+  //   if (this.moveFlag == 0) {
+  //     switch (blockNum) {
+  //       case 1:
+  //         this.array[0][5] = 1;
+  //         this.array[1][5] = 1;
+  //         this.array[2][5] = 1;
+  //         this.array[3][5] = 1;
 
-          //modifiy the move this.array
-          this.move[0][5] = 1;
-          this.move[1][5] = 1;
-          this.move[2][5] = 1;
-          this.move[3][5] = 1;
+  //         //modifiy the move this.array
+  //         this.move[0][5] = 1;
+  //         this.move[1][5] = 1;
+  //         this.move[2][5] = 1;
+  //         this.move[3][5] = 1;
 
-          break;
+  //         break;
 
-        case 2:
-          this.array[0][1] = 1;
-          this.array[0][2] = 1;
-          this.array[1][0] = 1;
-          this.array[1][1] = 1;
+  //       case 2:
+  //         this.array[0][1] = 1;
+  //         this.array[0][2] = 1;
+  //         this.array[1][0] = 1;
+  //         this.array[1][1] = 1;
 
-          //modifiy the move array
-          this.move[0][1] = 1;
-          this.move[0][2] = 1;
-          this.move[1][0] = 1;
-          this.move[1][1] = 1;
+  //         //modifiy the move array
+  //         this.move[0][1] = 1;
+  //         this.move[0][2] = 1;
+  //         this.move[1][0] = 1;
+  //         this.move[1][1] = 1;
 
-          break;
-      }
-      this.moveFlag = 1;
-    }
-  }
+  //         break;
+  //     }
+  //     this.moveFlag = 1;
+  //   }
+  // }
 
   moveBlockRight() {
+    console.log(this.move);
+    console.log("move right");
     for (let i = 19; i >= 0; i--) {
       let newMove = this.move[i].concat();
       for (let j = 8; j >= 0; j--) {
@@ -119,9 +152,12 @@ class PlayArea {
       }
       this.move[i] = newMove;
     }
+    console.log(this.move);
   }
 
   moveBlockLeft() {
+    console.log("move left");
+
     for (let i = 19; i >= 0; i--) {
       let newMove = this.move[i].concat();
       for (let j = 1; j < 10; j++) {
@@ -144,12 +180,14 @@ class PlayArea {
         }
       }
     }
-    this.moveFlag = 0;
+    // this.moveFlag = 0;
   }
 
   constructor() {
     this.moveFlag = 0;
     this.fixFlag = 0;
+    this.shape = new Shape();
+    this.shapeData = [];
     this.array = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -195,35 +233,16 @@ class PlayArea {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
-
-    this.fixArray = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ];
   }
 }
 
 class Game {
   draw() {
     this.playArea.draw();
+  }
+
+  genBlock() {
+    this.playArea.genBlock();
   }
 
   fall() {
@@ -234,9 +253,9 @@ class Game {
     this.playArea.resetMove();
   }
 
-  genBlock(blockNum) {
-    this.playArea.genBlock(blockNum);
-  }
+  // genBlock(blockNum) {
+  //   this.playArea.genBlock(blockNum);
+  // }
 
   moveBlockRight() {
     this.playArea.moveBlockRight();
@@ -256,7 +275,7 @@ class Game {
     document.onkeydown = e => {
       switch (e.code) {
         case "Space":
-          this.genBlock(2);
+          this.genBlock();
           break;
 
         case "ArrowRight":
@@ -267,7 +286,6 @@ class Game {
           this.moveBlockLeft();
           break;
       }
-      // draw();
       iteration();
     };
 
@@ -283,7 +301,6 @@ class Game {
 
 class ShapeA {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -294,7 +311,6 @@ class ShapeA {
 
 class ShapeB {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -305,7 +321,6 @@ class ShapeB {
 
 class ShapeC {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -316,7 +331,6 @@ class ShapeC {
 
 class ShapeD {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -327,7 +341,6 @@ class ShapeD {
 
 class ShapeE {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -338,7 +351,6 @@ class ShapeE {
 
 class ShapeF {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -349,7 +361,6 @@ class ShapeF {
 
 class ShapeG {
   constructor(initialRotation, posX, posY) {
-    // this.data = [0, 0, 0, 0];
     this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
@@ -437,68 +448,9 @@ class Shape {
   // moveShape(x, y) { }
 }
 
-class Draw {
-  constructor() {
-    this.playArea = new PlayArea();
-    this.shape = new Shape();
-    this.shapeData = [];
-  }
-
-  drawShape() {
-    this.shapeData = this.shape.createRandomShape();
-    let aShape = this.shapeData;
-    let typeFlag;
-    let originShape = [];
-
-    typeFlag = this.shape.getWhichShape();
-    console.log(typeFlag);
-
-    if (typeFlag == 0) {
-      for (let i = 0; i < aShape.data.length; i++) {
-        if (i > 2) {
-          originShape.push(aShape.data[i]);
-        }
-      }
-    } else {
-      for (let i = 0; i < aShape.data.length; i++) {
-        if (i > 1) {
-          originShape.push(aShape.data[i]);
-        }
-      }
-    }
-
-    console.log(originShape);
-
-    for (let i = 0; i < originShape.length; i++) {
-      for (let j = 0; j < originShape[i].length; j++) {
-        this.playArea.array[i][j] = originShape[i][j];
-      }
-    }
-    console.log(this.playArea.array);
-  }
-}
-
-// drawShape() {
-//   this.shapes[0].data = new Shape(0, 0, 0, 5);
-
-//   var aShape = this.shapes[0];
-
-//   for (var i = 0; i < aShape.data[0].length; i++) {
-//     for (var j = 0; j < aShape.data[i].length; j++) {
-//       if (aShape.data[i][j] === 1) {
-//         this.data[i + initialPosX][j + initialPosY] = aShape.data[i][j];
-//         //transfer to playerarea
-//       }
-//     }
-//   }
-// }
-
 let game;
 let shape;
-let draw;
 
 function startGame() {
   game = new Game();
-  draw = new Draw();
-  draw.drawShape();
 }
