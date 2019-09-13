@@ -77,14 +77,7 @@ class PlayArea {
             under[j] = 0;
           } else {
             //A block is under this array and itself is a block
-            // if (move[i][j] == 1) {
-            //   if (i == 19) {
-            //     fixFlag = 1;
-            //     fixArray = array.concat();
-            //     console.log(fixArray);
-            //     return false;
-            //   }
-            // }
+
             if (this.move[i][j] == 1) {
               this.resetMove();
             }
@@ -103,41 +96,6 @@ class PlayArea {
       }
     }
   }
-
-  // genBlock(blockNum) {
-  //   if (this.moveFlag == 0) {
-  //     switch (blockNum) {
-  //       case 1:
-  //         this.array[0][5] = 1;
-  //         this.array[1][5] = 1;
-  //         this.array[2][5] = 1;
-  //         this.array[3][5] = 1;
-
-  //         //modifiy the move this.array
-  //         this.move[0][5] = 1;
-  //         this.move[1][5] = 1;
-  //         this.move[2][5] = 1;
-  //         this.move[3][5] = 1;
-
-  //         break;
-
-  //       case 2:
-  //         this.array[0][1] = 1;
-  //         this.array[0][2] = 1;
-  //         this.array[1][0] = 1;
-  //         this.array[1][1] = 1;
-
-  //         //modifiy the move array
-  //         this.move[0][1] = 1;
-  //         this.move[0][2] = 1;
-  //         this.move[1][0] = 1;
-  //         this.move[1][1] = 1;
-
-  //         break;
-  //     }
-  //     this.moveFlag = 1;
-  //   }
-  // }
 
   moveBlockRight() {
     console.log("move right");
