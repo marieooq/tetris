@@ -283,7 +283,8 @@ class Game {
 
 class ShapeA {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [0, 0, 0, 0];
@@ -293,7 +294,8 @@ class ShapeA {
 
 class ShapeB {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [1, 0, 0, 0];
@@ -303,7 +305,8 @@ class ShapeB {
 
 class ShapeC {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [0, 0, 0, 1];
@@ -313,7 +316,8 @@ class ShapeC {
 
 class ShapeD {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [1, 1, 0, 0];
@@ -323,7 +327,8 @@ class ShapeD {
 
 class ShapeE {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [0, 1, 1, 0];
@@ -333,7 +338,8 @@ class ShapeE {
 
 class ShapeF {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [0, 1, 0, 0];
@@ -343,7 +349,8 @@ class ShapeF {
 
 class ShapeG {
   constructor(initialRotation, posX, posY) {
-    this.data = [0, 0, 0, 0];
+    // this.data = [0, 0, 0, 0];
+    this.data = [];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
     this.data[2] = [1, 1, 0, 0];
@@ -357,56 +364,72 @@ class Shape {
     this.initialRotation = 0;
     this.initialPosX = 0;
     this.initialPosY = 0;
+    this.shape = [];
   }
-  shape = "";
+
+  getWhichShape() {
+    return this.whichShape;
+  }
 
   createShape(whichShape) {
     if (whichShape === 0) {
+      this.whichShape = whichShape;
       this.shape = new ShapeA(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
-      console.log(this.shape);
     } else if (whichShape === 1) {
+      this.whichShape = whichShape;
       this.shape = new ShapeB(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     } else if (whichShape === 2) {
+      this.whichShape = whichShape;
       this.shape = new ShapeC(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     } else if (whichShape === 3) {
+      this.whichShape = whichShape;
       this.shape = new ShapeD(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     } else if (whichShape === 4) {
+      this.whichShape = whichShape;
       this.shape = new ShapeE(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     } else if (whichShape === 5) {
+      this.whichShape = whichShape;
       this.shape = new ShapeF(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     } else if (whichShape === 6) {
+      this.whichShape = whichShape;
       this.shape = new ShapeG(
         this.initialRotation,
         this.initialPosX,
         this.initialPosY
       );
     }
+
+    return this.shape;
   }
 
+  createRandomShape() {
+    let randomNum = Math.floor(Math.random() * 7);
+    return this.createShape(randomNum);
+  }
   // rotateShape(toPosition = 0) {
   //   this.shape.rotateShape(toPosition);
   // }
@@ -414,11 +437,68 @@ class Shape {
   // moveShape(x, y) { }
 }
 
-let game = "";
-let shape = "";
+class Draw {
+  constructor() {
+    this.playArea = new PlayArea();
+    this.shape = new Shape();
+    this.shapeData = [];
+  }
+
+  drawShape() {
+    this.shapeData = this.shape.createRandomShape();
+    let aShape = this.shapeData;
+    let typeFlag;
+    let originShape = [];
+
+    typeFlag = this.shape.getWhichShape();
+    console.log(typeFlag);
+
+    if (typeFlag == 0) {
+      for (let i = 0; i < aShape.data.length; i++) {
+        if (i > 2) {
+          originShape.push(aShape.data[i]);
+        }
+      }
+    } else {
+      for (let i = 0; i < aShape.data.length; i++) {
+        if (i > 1) {
+          originShape.push(aShape.data[i]);
+        }
+      }
+    }
+
+    console.log(originShape);
+
+    for (let i = 0; i < originShape.length; i++) {
+      for (let j = 0; j < originShape[i].length; j++) {
+        this.playArea.array[i][j] = originShape[i][j];
+      }
+    }
+    console.log(this.playArea.array);
+  }
+}
+
+// drawShape() {
+//   this.shapes[0].data = new Shape(0, 0, 0, 5);
+
+//   var aShape = this.shapes[0];
+
+//   for (var i = 0; i < aShape.data[0].length; i++) {
+//     for (var j = 0; j < aShape.data[i].length; j++) {
+//       if (aShape.data[i][j] === 1) {
+//         this.data[i + initialPosX][j + initialPosY] = aShape.data[i][j];
+//         //transfer to playerarea
+//       }
+//     }
+//   }
+// }
+
+let game;
+let shape;
+let draw;
 
 function startGame() {
   game = new Game();
-  shape = new Shape();
-  shape.createShape(0);
+  draw = new Draw();
+  draw.drawShape();
 }
