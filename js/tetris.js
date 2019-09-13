@@ -13,7 +13,7 @@ class ShapeB {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
+    this.data[2] = [1, 0, 0, 0];
     this.data[3] = [1, 1, 1, 1];
   }
 }
@@ -23,7 +23,7 @@ class ShapeC {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
+    this.data[2] = [0, 0, 0, 1];
     this.data[3] = [1, 1, 1, 1];
   }
 }
@@ -33,8 +33,8 @@ class ShapeD {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
-    this.data[3] = [1, 1, 1, 1];
+    this.data[2] = [1, 1, 0, 0];
+    this.data[3] = [1, 1, 0, 0];
   }
 }
 
@@ -43,8 +43,8 @@ class ShapeE {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
-    this.data[3] = [1, 1, 1, 1];
+    this.data[2] = [0, 1, 1, 0];
+    this.data[3] = [1, 1, 0, 0];
   }
 }
 
@@ -53,8 +53,8 @@ class ShapeF {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
-    this.data[3] = [1, 1, 1, 1];
+    this.data[2] = [0, 1, 0, 0];
+    this.data[3] = [1, 1, 1, 0];
   }
 }
 
@@ -63,8 +63,8 @@ class ShapeG {
     this.data = [0, 0, 0, 0];
     this.data[0] = [0, 0, 0, 0];
     this.data[1] = [0, 0, 0, 0];
-    this.data[2] = [0, 0, 0, 0];
-    this.data[3] = [1, 1, 1, 1];
+    this.data[2] = [1, 1, 0, 0];
+    this.data[3] = [0, 1, 1, 0];
   }
 }
 
@@ -79,6 +79,7 @@ class Shape {
 
     if (whichShape === 0) {
       this.shape = new ShapeA(initialRotation, initialPosX, initialPosY);
+      console.log(this.shape);
     } else if (whichShape === 1) {
       this.shape = new ShapeB(initialRotation, initialPosX, initialPosY);
     } else if (whichShape === 2) {
@@ -159,4 +160,3 @@ class Game {
     PlayArea = new PlayArea();
   }
 }
-折りたたむ;

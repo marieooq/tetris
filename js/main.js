@@ -54,6 +54,7 @@ class PlayArea {
             //     return false;
             //   }
             // }
+            this.resetMove();
             under[j] = 1;
           }
         }
@@ -62,10 +63,10 @@ class PlayArea {
   }
 
   resetMove() {
-    moveFlag = 0;
+    this.moveFlag = 0;
     for (let i = 0; i < 20; i++) {
       for (let j = 0; j < 10; j++) {
-        move[i][j] = 0;
+        this.move[i][j] = 0;
       }
     }
   }
@@ -280,8 +281,144 @@ class Game {
   }
 }
 
-var game = "";
+class ShapeA {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [0, 0, 0, 0];
+    this.data[3] = [1, 1, 1, 1];
+  }
+}
+
+class ShapeB {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [1, 0, 0, 0];
+    this.data[3] = [1, 1, 1, 1];
+  }
+}
+
+class ShapeC {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [0, 0, 0, 1];
+    this.data[3] = [1, 1, 1, 1];
+  }
+}
+
+class ShapeD {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [1, 1, 0, 0];
+    this.data[3] = [1, 1, 0, 0];
+  }
+}
+
+class ShapeE {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [0, 1, 1, 0];
+    this.data[3] = [1, 1, 0, 0];
+  }
+}
+
+class ShapeF {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [0, 1, 0, 0];
+    this.data[3] = [1, 1, 1, 0];
+  }
+}
+
+class ShapeG {
+  constructor(initialRotation, posX, posY) {
+    this.data = [0, 0, 0, 0];
+    this.data[0] = [0, 0, 0, 0];
+    this.data[1] = [0, 0, 0, 0];
+    this.data[2] = [1, 1, 0, 0];
+    this.data[3] = [0, 1, 1, 0];
+  }
+}
+
+class Shape {
+  constructor() {
+    this.whichShape = 0;
+    this.initialRotation = 0;
+    this.initialPosX = 0;
+    this.initialPosY = 0;
+  }
+  shape = "";
+
+  createShape(whichShape) {
+    if (whichShape === 0) {
+      this.shape = new ShapeA(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+      console.log(this.shape);
+    } else if (whichShape === 1) {
+      this.shape = new ShapeB(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    } else if (whichShape === 2) {
+      this.shape = new ShapeC(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    } else if (whichShape === 3) {
+      this.shape = new ShapeD(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    } else if (whichShape === 4) {
+      this.shape = new ShapeE(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    } else if (whichShape === 5) {
+      this.shape = new ShapeF(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    } else if (whichShape === 6) {
+      this.shape = new ShapeG(
+        this.initialRotation,
+        this.initialPosX,
+        this.initialPosY
+      );
+    }
+  }
+
+  // rotateShape(toPosition = 0) {
+  //   this.shape.rotateShape(toPosition);
+  // }
+
+  // moveShape(x, y) { }
+}
+
+let game = "";
+let shape = "";
 
 function startGame() {
   game = new Game();
+  shape = new Shape();
+  shape.createShape(0);
 }
