@@ -102,9 +102,7 @@ class PlayArea {
     for (let i = 19; i >= 0; i--) {
       let newMove = this.move[i].concat();
       for (let j = 8; j >= 0; j--) {
-        console.log("inside for roop of moveBlockRight");
         if (this.move[i][j] == 1) {
-          console.log("there is 1 in the array");
           this.array[i][j + 1] = this.array[i][j];
           this.array[i][j] = 0;
           newMove[j + 1] = 1;
