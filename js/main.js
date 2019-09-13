@@ -18,7 +18,6 @@ class PlayArea {
     }
   }
   genBlock() {
-    // console.log("genBlock is excecuted");
     this.shapeData = this.shape.createRandomShape();
     let aShape = this.shapeData;
     let typeFlag;
@@ -43,6 +42,7 @@ class PlayArea {
     for (let i = 0; i < originShape.length; i++) {
       for (let j = 0; j < originShape[i].length; j++) {
         this.array[i][j] = originShape[i][j];
+        console.log("rewrite the move array");
         this.move[i][j] = this.array[i][j];
       }
     }
@@ -85,7 +85,9 @@ class PlayArea {
             //     return false;
             //   }
             // }
-            this.resetMove();
+            if (this.move[i][j] == 1) {
+              this.resetMove();
+            }
             under[j] = 1;
           }
         }
@@ -138,12 +140,13 @@ class PlayArea {
   // }
 
   moveBlockRight() {
-    console.log(this.move);
     console.log("move right");
     for (let i = 19; i >= 0; i--) {
       let newMove = this.move[i].concat();
       for (let j = 8; j >= 0; j--) {
+        console.log("inside for roop of moveBlockRight");
         if (this.move[i][j] == 1) {
+          console.log("there is 1 in the array");
           this.array[i][j + 1] = this.array[i][j];
           this.array[i][j] = 0;
           newMove[j + 1] = 1;
@@ -152,7 +155,6 @@ class PlayArea {
       }
       this.move[i] = newMove;
     }
-    console.log(this.move);
   }
 
   moveBlockLeft() {
@@ -296,6 +298,8 @@ class Game {
         this.draw();
       }, 500);
     };
+
+    // iteration();
   }
 }
 
