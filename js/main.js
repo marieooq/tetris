@@ -25,6 +25,7 @@ class PlayArea {
 
     typeFlag = this.shape.getWhichShape();
 
+    //offset extra room
     if (typeFlag == 0) {
       for (let i = 0; i < aShape.data.length; i++) {
         if (i > 2) {
@@ -39,10 +40,10 @@ class PlayArea {
       }
     }
 
+    //transfer the block to the play area
     for (let i = 0; i < originShape.length; i++) {
       for (let j = 0; j < originShape[i].length; j++) {
         this.array[i][j] = originShape[i][j];
-        console.log("rewrite the move array");
         this.move[i][j] = this.array[i][j];
       }
     }
@@ -210,10 +211,6 @@ class Game {
   resetMove() {
     this.playArea.resetMove();
   }
-
-  // genBlock(blockNum) {
-  //   this.playArea.genBlock(blockNum);
-  // }
 
   moveBlockRight() {
     this.playArea.moveBlockRight();
