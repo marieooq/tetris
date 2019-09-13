@@ -249,7 +249,7 @@ class Game {
         this.checkDelete();
         this.fall();
         this.draw();
-      }, 500);
+      }, 1000);
     };
 
     // iteration();
